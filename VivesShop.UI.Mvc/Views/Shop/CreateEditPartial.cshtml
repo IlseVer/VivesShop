@@ -1,0 +1,10 @@
+﻿@model Product
+
+<div class="mb-3">
+	<label asp-for="Name" class="form-label">Item Name</label>
+	<input asp-for="Name" class="form-control" placeholder="Product name" id="Name" name="Name" required />
+</div>
+<div class="mb-3">
+	<label asp-for="Price" class="form-label">Price</label>
+	<input asp-for="Price" pattern="^\d+([,]\d{1,2})?$" placeholder="Price, use a comma for decimals" class="form-control" id="Price" name="Price" required />
+</div>

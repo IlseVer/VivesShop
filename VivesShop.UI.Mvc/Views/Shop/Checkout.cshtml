@@ -1,0 +1,103 @@
+﻿@model List<OrderItem>
+@{
+	ViewData["Title"] = "Checkout";
+}
+
+<div class="container mt-5">
+	<h1 class="text-center mb-4">@ViewBag.Title</h1>
+
+	<!-- Tabel met besteloverzicht -->
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead class="thead-dark">
+			<tr>
+				<th scope="col">Item</th>
+				<th scope="col">Quantity</th>
+				<th scope="col">Price</th>
+			</tr>
+			</thead>
+			<tbody>
+			@foreach (var item in Model)
+			{
+				@if (item.ShopItem != null)
+				{
+					<tr>
+						<td>@item.ShopItem.Name</td>
+						<td>@item.Quantity</td>
+						<td>€@(item.Quantity * item.ShopItem.Price)</td>
+					</tr>
+				}
+			}
+			</tbody>
+			<tfoot>
+			<tr>
+				<td colspan="2" class="text-end fw-bold">Total:</td>
+				<td class="fw-bold">€@Model.Sum(i => i.Quantity * i.ShopItem?.Price)</td>
+			</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+
+<!-- Betaalmethoden knoppen -->
+<div class="d-flex justify-content-center mt-4">
+	<button type="button" class="btn btn-primary btn-lg" id="payWithCardBtn">
+		<i class="bi bi-credit-card"></i> Pay with Card
+	</button>
+
+	<button type="button" class="btn btn-warning btn-lg" id="payWithCashBtn">
+		<i class="bi bi-cash"></i> Pay with Cash
+	</button>
+</div>
+
+<!-- Modal voor betalen met kaart -->
+<div class="modal fade" id="payCardModal" tabindex="-1" aria-labelledby="payCardModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="payCardModalLabel">Pay with Card</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>You paid by card!</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal voor betalen met contant geld -->
+<div class="modal fade" id="payCashModal" tabindex="-1" aria-labelledby="payCashModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="payCashModalLabel">Pay with Cash</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>You paid with cash!</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+           var payWithCardModal = new bootstrap.Modal(document.getElementById('payCardModal'));
+           var payWithCashModal = new bootstrap.Modal(document.getElementById('payCashModal'));
+
+            document.getElementById('payWithCardBtn').addEventListener('click', function () {
+                payWithCardModal.show();
+            });
+
+            document.getElementById('payWithCashBtn').addEventListener('click', function () {
+                payWithCashModal.show();
+            });
+        </script>
+}

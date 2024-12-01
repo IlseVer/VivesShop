@@ -1,0 +1,13 @@
+﻿@model Product
+
+@{
+	ViewData["Title"] = "Create New Product";
+}
+
+<div class="container mt-4">
+	<h1>@ViewBag.Title</h1>
+	<form asp-action="Create" method="post">
+		<partial name="CreateEditPartial" model="Model" />
+		<button type="submit" class="btn btn-success">Add Product</button>
+	</form>
+</div>
