@@ -27,7 +27,7 @@ namespace VivesShop.UI.Mvc.Controllers
             return View(viewModel);
         }
 
-        //ADD FROM CART
+        //ADD TO CART
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddToCart(int shopItemId)
